@@ -4,8 +4,8 @@ interface ContentfulConfig {
 }
 
 const contentfulConfig: ContentfulConfig = {
-  space: "66r8fy64hghx",
-  accessToken: "lLkVyYog1Orp6znjxxTgGG8C4ZE1i1nGX-1NJ36iimM",
+  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID!,
+  accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN!,
 };
 
 export default contentfulConfig;
