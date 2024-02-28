@@ -6,7 +6,7 @@ interface ChartState {
 }
 
 // Check local storage for saved data
-const storedData = localStorage.getItem('chartData');
+const storedData = typeof window !== 'undefined' ? localStorage.getItem('chartData') : null;
 const initialState: ChartState = {
   data: storedData ? JSON.parse(storedData) : [1, 1, 1, 1, 1, 1, 1],
 };
@@ -18,12 +18,16 @@ export const chartSlice = createSlice({
     setData: (state, action: PayloadAction<number[]>) => {
       state.data = action.payload;
       // Save data to local storage
-      localStorage.setItem('chartData', JSON.stringify(action.payload));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('chartData', JSON.stringify(action.payload));
+      }
     },
     resetData: (state) => {
       state.data = [1, 1, 1, 1, 1, 1, 1];
       // Reset local storage to initial data
-      localStorage.setItem('chartData', JSON.stringify(state.data));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('chartData', JSON.stringify(state.data));
+      }
     },
   },
 });

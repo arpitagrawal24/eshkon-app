@@ -1,12 +1,16 @@
 "use client";
-import { createClient, Entry } from "contentful";
+import { createClient, Entry, EntrySkeletonType } from "contentful";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import React from "react";
 import Image from "next/image";
 
-interface Data {
+interface Params {
+  id: string;
+}
+
+interface Data extends EntrySkeletonType {
   title: string;
   description: string;
   image: {
@@ -19,8 +23,10 @@ interface Data {
   };
 }
 
-interface Params {
-  id: string;
+interface RootState {
+  darkmode: {
+    mode: boolean;
+  };
 }
 
 const getData = async (id: string) => {
@@ -31,6 +37,7 @@ const getData = async (id: string) => {
 
   try {
     const res: Entry<Data> = await client.getEntry(id);
+    console.log(res.fields);
     return res.fields;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -46,7 +53,7 @@ const CardPage = ({ params }: { params: Params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchedData = await getData(id);
+        const fetchedData: Data | any = await getData(id);
 
         setData(fetchedData);
       } catch (error) {
