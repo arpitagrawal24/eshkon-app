@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { motion } from "framer-motion";
 import Card from "../components/Card";
 import { createClient } from "contentful";
 import { loader } from "@/lib/features/loaderSlice";
@@ -58,6 +59,7 @@ export default function Home() {
       const description = fields.description;
       const image = fields.image.fields.file.url;
       const updatedData: Item = { id, title, description, image };
+      // console.log(updatedData);
       return updatedData;
     });
     setCards(cleanUpData);
@@ -96,15 +98,25 @@ export default function Home() {
       }`}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {cards.map((card: Item) => (
-          <Card
-            key={card.id}
-            title={card.title}
-            description={card.description}
-            image={card.image}
-            id={""}
-          />
-        ))}
+        {isloading ? (
+          Array.from({ length: 6 }).map((_, index) => (
+            <motion.div
+              key={index}
+              className="w-64 h-64 bg-gray-300 rounded-lg animate-pulse"
+              layoutId={`card-${index}`}
+            ></motion.div>
+          ))
+        ) : (
+          cards.map((card: Item, index) => (
+            <Card
+              key={card.id}
+              title={card.title}
+              description={card.description}
+              image={card.image}
+              id={card.id}
+            />
+          ))
+        )}
       </div>
     </main>
   );

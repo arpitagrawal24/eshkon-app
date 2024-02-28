@@ -15,11 +15,13 @@ const Navbar = () => {
   return (
     <div
       className={`p-4 ${
-        mode ? "bg-white text-black" : "bg-gray-800 text-white"
+        mode ? "bg-white text-black" : "bg-[#0f172a] text-white"
       }`}
     >
       <div className="flex justify-between">
-        <div className="text-2xl font-bold">Eshkon</div>
+        <Link href="/">
+          <div className="text-2xl font-bold">Eshkon</div>
+        </Link>
         <div className="flex items-center space-x-4">
           <ThemeToggle />
           <Link href="/">
@@ -28,8 +30,8 @@ const Navbar = () => {
           <Link href="/">
             <div className="hover:text-gray-300">Contact</div>
           </Link>
-          <Link href="/">
-            <div className="hover:text-gray-300">About</div>
+          <Link href="/chart">
+            <div className="hover:text-gray-300">Dashboard</div>
           </Link>
         </div>
       </div>

@@ -16,15 +16,11 @@ const ThemeToggle: React.FC = () => {
   return (
     <div
       onClick={() => dispatch(toggleDarkMode())}
-      style={
-        mode ? { backgroundColor: "white" } : { backgroundColor: "#0f172a" }
-      }
+      className={`w-10 h-10 flex items-center justify-center rounded-full cursor-pointer ${
+        mode ? "bg-white" : "bg-[#0f172a]"
+      }`}
     >
-      {mode ? (
-        <FaMoon width={14} height={14} />
-      ) : (
-        <FaSun />
-      )}
+      {mode ? <FaMoon width={14} height={14} /> : <FaSun />}
     </div>
   );
 };
